@@ -25,6 +25,7 @@ namespace Logica.ranking
                                        elo =  stats.elo_actual
                                    }
                                    ).OrderByDescending(x => x.elo).ThenBy(x => x.id_user).ToList();
+
                     if(players.Count > 0)
                     {
                         foreach (var player in players)

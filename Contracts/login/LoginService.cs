@@ -13,6 +13,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Logica.login;
+using Contracts.friendsConnected;
 
 namespace Contracts.login
 {
@@ -22,18 +23,37 @@ namespace Contracts.login
         public void Login(string username, string password)
         {
 
-            int status = LoginAccount.loginAccount(username, password);
+            int status = LoginAccount.Login(username, password);
 
             var connection = OperationContext.Current.GetCallbackChannel<ILoginClient>();
-            
-            if(status == 0)
+
+            int idUser = UserHelper.GetIdUser(username);
+
+            try
             {
-                int idUser = UserHelper.GetIdUser(username);
-                connection.LoginStatus(status, idUser);
+                if (FriendService.StillConnected(idUser))
+                {
+                    connection.LoginStatus(3, -1);
+                    return;
+                }
+
+
+                if (status == 0)
+                {
+                    connection.LoginStatus(status, idUser);
+                }
+                else
+                {
+                    connection.LoginStatus(status, -1);
+                }
             }
-            else
+            catch (CommunicationObjectAbortedException)
             {
-                connection.LoginStatus(status, -1);
+                if (Globals.UsersConnected.Keys.Contains(idUser))
+                {
+                    FriendService friendService = new FriendService();
+                    friendService.Disconnected(idUser);
+                }
             }
         }
     }

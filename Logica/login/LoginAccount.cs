@@ -18,19 +18,19 @@ namespace Logica.login
     {
         public LoginAccount()
         {
- 
         }
 
-        public static int loginAccount(string username, string password)
+        public static int Login(string username, string password)
         {
-                LoginStatus status = LoginStatus.failed;
+            LoginStatus status = LoginStatus.failed;
 
-                string ps = Encrypt.GetSHA256(password);
+            string ps = Encrypt.GetSHA256(password);
 
-                //empty fields
-                if (username.Trim() == "" || password.Trim() == "")
-                    return 3;
+            //empty fields
+            if (username.Trim() == "" || password.Trim() == "")
+                return 3;
 
+            try {
                 using (var context = new SuperChess())
                 {
                     var AccountExist = from User in context.Users
@@ -42,14 +42,17 @@ namespace Logica.login
                     else
                         status = LoginStatus.notExist;
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("LoginAccount.cs " + e.Message);
+                return 1;
+            }
 
-                if (status == LoginStatus.Success)
-                    return 0;
-                else
-                {
-                    return 2;
-                }
-        
+            if (status == LoginStatus.Success)
+                return 0;
+            else
+                return 2;    
         }
     }
 

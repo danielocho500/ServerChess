@@ -64,10 +64,10 @@ namespace Contracts
             friendService.Disconnected(id);
         }
 
-        public bool GenerateCodeRegister(string username, string password, string email)
+        public void GenerateCodeRegister(string username, string password, string email)
         {
             
-            return registerService.GenerateCodeRegister(username,password,email);
+            registerService.GenerateCodeRegister(username,password,email);
         }
 
         public void GenerateCodeInvitation(int id)
@@ -107,34 +107,34 @@ namespace Contracts
             matchService.SendMessage(isWhite,message, matchCode);
         }
 
-        public void sendConnection(bool white, string matchCode)
+        public void SendConnection(bool white, string matchCode)
         {
-            matchService.sendConnection(white, matchCode);
+            matchService.SendConnection(white, matchCode);
         }
 
-        public void getStats(int id)
+        public void GetStats(int id)
         {
-            GetStatsService.getStats(id);
+            GetStatsService.GetStats(id);
         }
 
-        public void giveUp(bool isWhite, string matchCode)
+        public void GiveUp(bool isWhite, string matchCode)
         {
-            matchService.giveUp(isWhite, matchCode);
+            matchService.GiveUp(isWhite, matchCode);
         }
 
-        public void win(bool isWhite, bool won, string matchCode)
+        public void Win(bool isWhite, bool won, string matchCode)
         {
-            matchService.win(isWhite, won, matchCode);
+            matchService.Win(isWhite, won, matchCode);
         }
 
-        public void move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeLeft)
+        public void Move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeLeft)
         {
-            matchService.move(isWhite, matchCode, previousPosition, newPosition,timeLeft);
+            matchService.Move(isWhite, matchCode, previousPosition, newPosition,timeLeft);
         }
 
-        public void getRanking()
+        public void GetRanking(int id)
         {
-            rankingService.getRanking();
+            rankingService.GetRanking(id);
         }
     }
 }

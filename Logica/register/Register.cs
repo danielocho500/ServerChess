@@ -16,11 +16,11 @@ namespace Logica.register
 
         }
 
-        public RegisterStatus RegisterAccount(string username, string password, string email)
+        public int RegisterAccount(string username, string password, string email)
         {
             try
             {
-                RegisterStatus status = RegisterStatus.Failed;
+                int status = 1;
                 string ps = Encrypt.GetSHA256(password);
 
                 using (var context = new SuperChess())
@@ -54,7 +54,7 @@ namespace Logica.register
 
                     if (entries > 0)
                     {
-                        status = RegisterStatus.Success;
+                        status = 0;
                     }
                 }
 
@@ -62,7 +62,7 @@ namespace Logica.register
             } catch (DbUpdateException e)
             {
                 Console.WriteLine("Register.cs " + e);
-                return RegisterStatus.Failed;
+                return 1;
             }
         }
     }
@@ -70,6 +70,6 @@ namespace Logica.register
     public enum RegisterStatus
     {
         Success = 0,
-        Failed
+        Failed = 1
     }
 }

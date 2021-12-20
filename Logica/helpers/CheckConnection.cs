@@ -9,7 +9,7 @@ namespace Logica.helpers
 {
     public class CheckConnection
     {
-        public static bool isConnected()
+        public static bool IsConnected()
         {
             bool status = false;
             try

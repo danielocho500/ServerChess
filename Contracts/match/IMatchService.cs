@@ -14,16 +14,16 @@ namespace Contracts.match
         void SendMessage(bool isWhite, string message, string matchCode);
 
         [OperationContract(IsOneWay = true)]
-        void sendConnection(bool isWhite, string matchCode);
+        void SendConnection(bool isWhite, string matchCode);
 
         [OperationContract(IsOneWay = true)]
-        void giveUp(bool isWhite, string matchCode);
+        void GiveUp(bool isWhite, string matchCode);
 
         [OperationContract(IsOneWay = true)]
-        void win(bool isWhite,bool won, string matchCode);
+        void Win(bool isWhite,bool won, string matchCode);
 
         [OperationContract(IsOneWay = true)]
-        void move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeleft);
+        void Move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeleft);
 
     }
 }

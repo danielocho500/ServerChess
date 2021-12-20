@@ -12,6 +12,6 @@ namespace Contracts.ranking
     interface IRankingService
     {
         [OperationContract(IsOneWay = true)]
-        void getRanking();
+        void GetRanking(int idUser);
     }
 }

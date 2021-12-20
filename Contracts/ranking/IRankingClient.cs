@@ -12,7 +12,7 @@ namespace Contracts.ranking
     interface IRankingClient
     {
         [OperationContract(IsOneWay = true)]
-        void ShowRanking(Tuple<string,int> rank);
+        void ShowRanking(List<Tuple<string, int>> rank);
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using Data;
+﻿
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,89 +11,109 @@ namespace Logica.helpers
 {
     public class ContactsHelper
     {
-        public static ContactsStatus contactsStatus(int idSend, int idRecive)
+        public static ContactsStatus ContactsRelation(int idSend, int idRecive)
         {
             ContactsStatus status = ContactsStatus.failed;
-
-            using (var context = new SuperChess())
+            try
             {
-                var FriendExist = from Friend in context.Friends
-                                 where (Friend.friend_A == idSend && Friend.friend_B == idRecive)
-                                    || (Friend.friend_A == idRecive && Friend.friend_B == idSend)
-                                 select Friend;
-                if (FriendExist.Count() > 0)
+                using (var context = new SuperChess())
                 {
-                    switch (FriendExist.First().status)
+                    var FriendExist = from Friend in context.Friends
+                                      where (Friend.friend_A == idSend && Friend.friend_B == idRecive)
+                                         || (Friend.friend_A == idRecive && Friend.friend_B == idSend)
+                                      select Friend;
+                    if (FriendExist.Count() > 0)
                     {
-                        case 0:
-                            status = ContactsStatus.friends;
-                            break;
-                        case 1:
-                            status = ContactsStatus.requested;
-                            break;
-                        case 2:
-                            status = ContactsStatus.rejected;
-                            break;
-                        default:
-                            status = ContactsStatus.failed;
-                            break;
+                        switch (FriendExist.First().status)
+                        {
+                            case 0:
+                                status = ContactsStatus.friends;
+                                break;
+                            case 1:
+                                status = ContactsStatus.requested;
+                                break;
+                            case 2:
+                                status = ContactsStatus.rejected;
+                                break;
+                            default:
+                                status = ContactsStatus.failed;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        status = ContactsStatus.noRelation;
                     }
                 }
-                else
-                {
-                    status = ContactsStatus.noRelation;
-                }
             }
+            catch(Exception e)
+            {
+                Console.WriteLine("ContactsHelper.cs" + e.Message);
+            }
+            
 
             return status;
         }
 
-        public static SendStatus sendRequest(int idSend, int idRecive)
+        public static SendStatus SendRequest(int idSend, int idRecive)
         {
             SendStatus requestStatus = SendStatus.failed;
-
-            using( var context = new SuperChess())
+            try
             {
-                Friend request = new Friend()
+                using (var context = new SuperChess())
                 {
-                    friend_A = idSend,
-                    friend_B = idRecive,
-                    status = 1
-                };
+                    Friend request = new Friend()
+                    {
+                        friend_A = idSend,
+                        friend_B = idRecive,
+                        status = 1
+                    };
 
-                context.Friends.Add(request);
-                int entries = context.SaveChanges();
-                context.SaveChanges();
+                    context.Friends.Add(request);
+                    int entries = context.SaveChanges();
+                    context.SaveChanges();
 
 
 
-                if (entries > 0)
-                {
-                    requestStatus = SendStatus.success;
+                    if (entries > 0)
+                    {
+                        requestStatus = SendStatus.success;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ContactsHelper.cs " + e.Message);
             }
 
             return requestStatus;
         }
 
-        public static Dictionary<int, string> getRequest(int idUser)
+        public static Dictionary<int, string> GetRequest(int idUser)
         {
             Dictionary<int, string> requets = new Dictionary<int, string>();
 
-            using (var context = new SuperChess())
+            try
             {
-                var users = from Friend in context.Friends
-                            where Friend.friend_B == idUser && Friend.status == 1
-                            select Friend;
-
-                foreach( var user in users)
+                using (var context = new SuperChess())
                 {
-                    var username = from User in context.Users
-                                   where User.id_user == user.friend_A
-                                   select User;
+                    var users = from Friend in context.Friends
+                                where Friend.friend_B == idUser && Friend.status == 1
+                                select Friend;
 
-                    requets[user.friend_A] = username.First().username;
+                    foreach (var user in users)
+                    {
+                        var username = from User in context.Users
+                                       where User.id_user == user.friend_A
+                                       select User;
+
+                        requets[user.friend_A] = username.First().username;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ContactsHelper.cs " + e.Message);
             }
 
             return requets;
@@ -102,57 +123,70 @@ namespace Logica.helpers
         {
             StatusRespond status = StatusRespond.failed;
 
-            using (var context = new SuperChess())
+            try
             {
-                var request = from Friend in context.Friends
-                              where Friend.friend_B == idUserSend && Friend.friend_A == idUserRecive
-                              select Friend;
+                using (var context = new SuperChess())
+                {
+                    var request = from Friend in context.Friends
+                                  where Friend.friend_B == idUserSend && Friend.friend_A == idUserRecive
+                                  select Friend;
 
-                if (accept == true)
-                {
-                    request.First().status = 0;
-                }
-                else
-                {
-                    request.First().status = 2;
-                }
-                int var = context.SaveChanges();
+                    if (accept == true)
+                    {
+                        request.First().status = 0;
+                    }
+                    else
+                    {
+                        request.First().status = 2;
+                    }
+                    int var = context.SaveChanges();
 
-                if (var > 0)
-                {
-                    status = StatusRespond.success;
+                    if (var > 0)
+                    {
+                        status = StatusRespond.success;
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("ContactsHelper.cs " + e.Message);
             }
 
             return status;
         }
 
-        public static Dictionary<int,string> getFriends(int id)
+        public static Dictionary<int,string> GetFriends(int id)
         {
             Dictionary<int, string> friends = new Dictionary<int, string>();
-
-            using (var context = new SuperChess())
+            try
             {
-                var friendsDb = from Friend in context.Friends
-                              where (Friend.friend_A == id && Friend.status == 0) || (Friend.friend_B == id && Friend.status == 0)
-                              select Friend;
-
-                foreach (var friendDb in friendsDb)
+                using (var context = new SuperChess())
                 {
-                    if (id != friendDb.friend_A)
+                    var friendsDb = from Friend in context.Friends
+                                    where (Friend.friend_A == id && Friend.status == 0) || (Friend.friend_B == id && Friend.status == 0)
+                                    select Friend;
+
+                    foreach (var friendDb in friendsDb)
                     {
-                        string name = UserHelper.GetUsername(friendDb.friend_A);
-                        friends[friendDb.friend_A] = name;
-                    }
-                    else
-                    {
-                        string name = UserHelper.GetUsername(friendDb.friend_B);
-                        friends[friendDb.friend_B] = name;
+                        if (id != friendDb.friend_A)
+                        {
+                            string name = UserHelper.GetUsername(friendDb.friend_A);
+                            friends[friendDb.friend_A] = name;
+                        }
+                        else
+                        {
+                            string name = UserHelper.GetUsername(friendDb.friend_B);
+                            friends[friendDb.friend_B] = name;
+                        }
                     }
                 }
             }
-            
-            
+            catch (Exception e)
+            {
+                Console.WriteLine("ContactsHelper.cs " + e.Message);
+            }
+
+
             return friends;
         }
 

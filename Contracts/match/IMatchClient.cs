@@ -14,6 +14,6 @@ namespace Contracts.match
         [OperationContract(IsOneWay = true)]
         void MatchEnds(bool youWon, int oldElo,int newElo);
         [OperationContract(IsOneWay = true)]
-        void movePiece(string previousPosition, string newPosition, int timeLeft);
+        void MovePiece(string previousPosition, string newPosition, int timeLeft);
     }
 }

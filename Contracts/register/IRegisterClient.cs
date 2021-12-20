@@ -19,6 +19,8 @@ namespace Contracts.register
     interface IRegisterClient
     {
         [OperationContract(IsOneWay = true)]
-        void ValidateCode(bool codeStatus, int message);
+        void ValidateCode(int status);
+        [OperationContract(IsOneWay = true)]
+        void CodeRecieve(int status);
     }
 }

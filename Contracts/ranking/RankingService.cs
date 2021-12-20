@@ -1,4 +1,5 @@
-﻿using Logica.ranking;
+﻿using Contracts.friendsConnected;
+using Logica.ranking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,26 @@ namespace Contracts.ranking
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     class RankingService : IRankingService
     {
-        public void getRanking()
+        public void GetRanking(int idUser)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IRankingClient>();
             
-            List<Tuple<string, int>> listWin = new List<Tuple<string, int>>();
             RankingUser rankingUser = new RankingUser();
-            listWin = rankingUser.GetWin();
-            
-            connection.ShowRanking(listWin.First());
+
+            List<Tuple<string, int>> listWin = rankingUser.GetWin();
+
+            try
+            {
+                connection.ShowRanking(listWin);
+            }
+            catch (CommunicationObjectAbortedException)
+            {
+                if (Globals.UsersConnected.Keys.Contains(idUser))
+                {
+                    FriendService friendService = new FriendService();
+                    friendService.Disconnected(idUser);
+                }
+            }
         }
     }
 }

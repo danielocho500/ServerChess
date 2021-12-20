@@ -12,6 +12,6 @@ namespace Contracts.getStats
     interface IGetStatsService
     {
         [OperationContract(IsOneWay = true)]
-        void getStats(int id);
+        void GetStats(int id);
     }
 }

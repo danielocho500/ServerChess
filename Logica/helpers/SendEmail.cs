@@ -9,7 +9,7 @@ namespace Logica.helpers
 {
     public class SendEmail
     {
-        public static bool send(string email, string code, string username)
+        public static bool Send(string email, string code, string username)
         {
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("superchess351@gmail.com");
