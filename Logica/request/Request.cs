@@ -1,54 +1,62 @@
-﻿using Logica.helpers;
+﻿/******************************************************************/
+/* Archivo: Request.cs                                            */
+/* Programador: Daniel Diaz                                       */
+/* Fecha: 26/Oct/2021                                             */
+/* Fecha modificación:  13/dic/2021                               */
+/* Descripción: Logica para las consulas te request               */
+/******************************************************************/
+
+using Logica.helpers;
 
 namespace Logica.request 
 {
-    public class Request
+    public static class Request
     {
-        public static RequestStatus send(string user, int idSend)
+        public static int Send(string userRecieve, int idSend)
         {
-            bool exist = UserHelper.Exist(user);
+            bool exist = UserHelper.Exist(userRecieve);
 
             if (!exist)
-                return RequestStatus.UserNotFound;
+                return 5;
 
-            var idRecive = UserHelper.GetIdUser(user);
+            var idRecive = UserHelper.GetIdUser(userRecieve);
 
             if (idRecive == idSend)
-                return RequestStatus.AutoRequest;
+                return 6;
 
-            ContactsStatus contactsStatus = ContactsHelper.contactsStatus(idSend, idRecive);
+            ContactsStatus contactsStatus = ContactsHelper.ContactsRelation(idSend, idRecive);
 
 
             switch (contactsStatus)
             {
                 case ContactsStatus.friends:
-                    return RequestStatus.friendsAlready;                        
+                    return 2;                        
                 case ContactsStatus.rejected:
-                    return RequestStatus.rejected;
+                    return 4;
                 case ContactsStatus.requested:
-                    return RequestStatus.requestedAlready;
+                    return 3;
                 case ContactsStatus.failed:
-                    return RequestStatus.Failed;
+                    return 1;
             }
 
 
-            SendStatus sendStatus = ContactsHelper.sendRequest(idSend, idRecive);
+            SendStatus sendStatus = ContactsHelper.SendRequest(idSend, idRecive);
 
             if (sendStatus == SendStatus.success)
-                return RequestStatus.success;
+                return 0;
 
-            return RequestStatus.Failed;
+            return 1;
         }
     }
 
     public enum RequestStatus
     {
-        success,
-        friendsAlready,
-        requestedAlready,
-        rejected,
-        UserNotFound,
-        Failed,
-        AutoRequest
+        success = 0,
+        failed = 1,
+        friendsAlready = 2,
+        requestedAlready = 3,
+        rejected = 4,
+        UserNotFound = 5,
+        AutoRequest = 6
     }
 }

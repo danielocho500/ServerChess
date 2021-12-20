@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: Encrypt.cs                                            */
+/* Programador: Daniel Diaz Rossell                       */
+/* Fecha: 15/Oct/2021                                             */
+/* Fecha modificación:  18/Oct/2021                               */
+/* Descripción: encripta contraseñas                              */
+/******************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -7,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Logica.helpers
 {
-    class Encrypt
+    public class Encrypt
     {
         public static string GetSHA256(string str)
         {

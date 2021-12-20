@@ -1,6 +1,6 @@
 ﻿/******************************************************************/
 /* Archivo: RegisterService.cs                                    */
-/* Programador: Raul Peredo Estudillo                             */
+/* Programador: Daniel Diaz Rossell                            */
 /* Fecha: 18/oct/2021                                             */
 /* Fecha modificación: 22/oct/2021                                */
 /* Descripción: Permite a un usuario registrarse con un codigo que*/
@@ -26,39 +26,48 @@ namespace Contracts.register
     class RegisterService : IRegisterService
     {
         Dictionary<IRegisterClient, UserData> codes = new Dictionary<IRegisterClient, UserData>();
-        public bool GenerateCodeRegister(string username, string password, string email)
+        public void GenerateCodeRegister(string username, string password, string email)
         {
-           AccountExistStatus status = exist(email, username);
+            var connection = OperationContext.Current.GetCallbackChannel<IRegisterClient>();
 
-            if (status == AccountExistStatus.emailExist || status == AccountExistStatus.userExist)
-                return false;
+            int userExist = Exist(email, username);
+
+            if (userExist != 0)
+            {
+                connection.CodeRecieve(userExist);
+                return;
+            }
 
             string code = GenerateCode.GetVerificationCode(6);
 
             UserData ud = new UserData(username, password, email, code);
             
-            bool emailStatus = SendEmail.send(email, code, username);
-
-            if (emailStatus)
+            bool emailStatus = SendEmail.Send(email, code, username);
+            try
             {
-                var connection = OperationContext.Current.GetCallbackChannel<IRegisterClient>();
-                codes[connection] = ud;
-                return true;
+                if (emailStatus)
+                {
+                    codes[connection] = ud;
+                    connection.CodeRecieve(0);
+                }
+                else
+                {
+                    connection.CodeRecieve(1);
+                }
             }
-            else
+            catch (CommunicationObjectAbortedException)
             {
-                return false;
             }
         }
 
-        public void VerificateCode(string codeUser)
+        public void VerificateCode(string codeuser)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IRegisterClient>();
             string codeServer = codes[connection].GetCode();
 
-            if (codeServer != codeUser) 
+            if (codeServer != codeuser) 
             {
-                connection.ValidateCode(false, 1);
+                connection.ValidateCode(2);
             }
 
             else
@@ -69,14 +78,16 @@ namespace Contracts.register
 
 
                 Register register = new Register();
-                RegisterStatus status = register.RegisterAccount(username, password, email);
+                int status = register.RegisterAccount(username, password, email);
 
 
-
-                if (status == RegisterStatus.Success)
-                    connection.ValidateCode(true, 0);
-                else
-                    connection.ValidateCode(false, 2);
+                try
+                {
+                    connection.ValidateCode(status);
+                }
+                catch (CommunicationObjectAbortedException)
+                { 
+                }
             }
         }
     }

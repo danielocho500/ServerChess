@@ -1,4 +1,12 @@
-﻿using Data;
+﻿/******************************************************************/
+/* Archivo: RankingUser.cs                                       */
+/* Programador: Daniel Díaz Rossell                               */
+/* Fecha: 15/oct/2021                                             */
+/* Fecha modificación: 12/nov/2021                                */
+/* Descripción: Logica para ranking                               */
+/******************************************************************/
+
+using Data;
 using Logica.helpers;
 using System;
 using System.Collections.Generic;
@@ -40,7 +48,7 @@ namespace Logica.ranking
             } catch(EntitySqlException e)
             {
                 Console.WriteLine("Error in RankingUser.cs ",e);
-                return null;
+                return listWin;
             }
         }
     }

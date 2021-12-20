@@ -21,5 +21,7 @@ namespace Contracts.RespondRequest
     {
         [OperationContract(IsOneWay = true)]
         void ReciveRequest(Dictionary<int,string> users);
+
+
     }
 }

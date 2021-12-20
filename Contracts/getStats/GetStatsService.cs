@@ -1,4 +1,13 @@
-﻿using Logica.helpers;
+﻿/******************************************************************/
+/* Archivo: GetStatsService.cs                                    */
+/* Programador: Daniel Diaz Rossell                               */
+/* Fecha: 15/Oct/2021                                             */
+/* Fecha modificación:  15/Nov/2021                               */
+/* Descripción: Contratos para generacion consusltas de stats     */
+/******************************************************************/
+
+using Contracts.friendsConnected;
+using Logica.helpers;
 using Logica.stats;
 using System;
 using System.Collections.Generic;
@@ -12,7 +21,7 @@ namespace Contracts.getStats
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     class GetStatsService : IGetStatsService
     {
-        public void getStats(int id)
+        public void GetStats(int id)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IGetStatsClient>();
 
@@ -23,7 +32,19 @@ namespace Contracts.getStats
             int Elo = stats.GetEloActual();
             int MaxElo = stats.GetEloMax();
 
-            connection.ShowStats(MatchesP, MatchesW, MatchesPer, MaxElo, Elo);
+            try
+            {
+                connection.ShowStats(MatchesP, MatchesW, MatchesPer, MaxElo, Elo);
+            }
+            catch (CommunicationObjectAbortedException)
+            {
+                if (Globals.UsersConnected.Keys.Contains(id))
+                {
+                    FriendService friendService = new FriendService();
+                    friendService.Disconnected(id);
+                }
+            }
+   
         }
     }
 }

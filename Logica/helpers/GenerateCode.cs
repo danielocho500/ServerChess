@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: GenerateCode.cs                                       */
+/* Programador: Raul Arturo Peredo Estudillo                      */
+/* Fecha: 15/Oct/2021                                             */
+/* Fecha modificación:  18/Oct/2021                               */
+/* Descripción: Genera codigo random                              */
+/******************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Logica.helpers
 {
-    public class GenerateCode
+    public static class GenerateCode
     {
         public static string GetVerificationCode(int length)
         {

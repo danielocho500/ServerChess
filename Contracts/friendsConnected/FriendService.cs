@@ -22,9 +22,9 @@ namespace Contracts.friendsConnected
         public void Connected(int id)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IFriendConnectedClient>();
-            //Aqui se agrega al diccionario
+
             Globals.UsersConnected[id] = connection;
-            Dictionary<int,string> friends = ContactsHelper.getFriends(id);
+            Dictionary<int,string> friends = ContactsHelper.GetFriends(id);
 
             List<string> connectedFriends = new List<string>();
             List<string> disconnecteddFriends = new List<string>();
@@ -36,9 +36,16 @@ namespace Contracts.friendsConnected
                 
                 if (Globals.UsersConnected.Keys.Contains(friendId))
                 {
-                    Globals.UsersConnected[friendId].NewConecction(actualUsername);
-
-                    connectedFriends.Add(friends[friendId]);
+                    try
+                    {
+                        Globals.UsersConnected[friendId].NewConecction(actualUsername);
+                        connectedFriends.Add(friends[friendId]);
+                    }
+                    catch(CommunicationObjectAbortedException)
+                    {
+                        disconnecteddFriends.Add(friends[friendId]);
+                        Globals.UsersConnected.Remove(friendId);
+                    }
                 }
                 else
                 {
@@ -51,28 +58,57 @@ namespace Contracts.friendsConnected
 
         public void Disconnected(int id)
         {
-            //Aqui los borra :c
             Globals.UsersConnected.Remove(id);
 
-            Dictionary<int,string> friends = ContactsHelper.getFriends(id);
+            Dictionary<int,string> friends = ContactsHelper.GetFriends(id);
             string actualUsername = UserHelper.GetUsername(id);
-            //Aqui avisa que se desconecto, y asi le hice pero es con duplex
-            //Y ya tadam
+
             foreach (int friendId in friends.Keys)
             {
                 if (Globals.UsersConnected.Keys.Contains(friendId))
                 {
-                    Globals.UsersConnected[friendId].NewDisconecction(actualUsername);
+                    try
+                    {
+                        Globals.UsersConnected[friendId].NewDisconecction(actualUsername);
+                    }
+                    catch (CommunicationObjectAbortedException)
+                    {
+                        Globals.UsersConnected.Remove(friendId);
+                    }
                 }
             }
         }
 
-        public void PrintDictionary(Dictionary<int, string> dictionary)
+        public static bool StillConnected(int id)
         {
-            foreach(int key in dictionary.Keys)
+            if (Globals.UsersConnected.Keys.Contains(id))
             {
-                Console.WriteLine(dictionary[key]);
+                try
+                {
+                    Globals.UsersConnected[id].SeeConecction();
+                    return true;
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                    Globals.UsersConnected.Remove(id);
+                    return false;
+                }    
             }
+            else
+                return false;
+        }
+
+        public static void NewFriend(int idUserSend, int idUserRecieve)
+        {
+            bool userSend = Globals.UsersConnected.Keys.Contains(idUserSend);
+            bool userRecieve = Globals.UsersConnected.Keys.Contains(idUserRecieve);
+            
+
+            if(userSend)
+                Globals.UsersConnected[idUserSend].newFriend(UserHelper.GetUsername(idUserRecieve), userRecieve);
+
+            if (userRecieve)
+                Globals.UsersConnected[idUserRecieve].newFriend(UserHelper.GetUsername(idUserSend), userSend);
         }
     }
 }

@@ -1,4 +1,12 @@
-﻿using Data;
+﻿/******************************************************************/
+/* Archivo: UserHelper.cs                                         */
+/* Programador: Raul Arturo Peredo Estudillo                      */
+/* Fecha: 20/Oct/2021                                             */
+/* Fecha modificación:  10/Dic/2021                               */
+/* Descripción: Metodos para codigo de usuarios                   */
+/******************************************************************/
+
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -37,17 +45,23 @@ namespace Logica.helpers
         public static int GetIdUser(string username)
         {
             int id = 0;
-
-            using (var context = new SuperChess())
+            try
             {
-                var user = from User in context.Users
-                         where User.username == username
-                         select User.id_user;
+                using (var context = new SuperChess())
+                {
+                    var user = from User in context.Users
+                               where User.username == username
+                               select User.id_user;
 
-                if (user.Count() > 0)
-                    id = user.First();
-                else
-                    id = -1;
+                    if (user.Count() > 0)
+                        id = user.First();
+                    else
+                        id = -1;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ContactsHelper.cs " + e.Message);
             }
             return id;
         }

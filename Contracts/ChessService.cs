@@ -21,11 +21,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Contracts.getStats;
+using Contracts.ranking;
 
 namespace Contracts
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
-    class ChessService : IRegisterService, ILoginService, IConnectionService, IRequestService, IRespondService, IFriendService, ISendInvitationService, IMatchService, IGetStatsService
+    class ChessService : IRegisterService, ILoginService, IConnectionService, IRequestService, IRespondService, IFriendService, ISendInvitationService, IMatchService, IGetStatsService, IRankingService
     {
         public RegisterService registerService = new RegisterService();
         public LoginService loginService = new LoginService();
@@ -36,7 +37,7 @@ namespace Contracts
         public SendInvitation sendInvitation = new SendInvitation();
         public MatchService matchService = new MatchService();
         public GetStatsService GetStatsService = new GetStatsService();
-       
+        public RankingService rankingService = new RankingService();
 
         public void Check()
         {
@@ -63,10 +64,10 @@ namespace Contracts
             friendService.Disconnected(id);
         }
 
-        public bool GenerateCodeRegister(string username, string password, string email)
+        public void GenerateCodeRegister(string username, string password, string email)
         {
             
-            return registerService.GenerateCodeRegister(username,password,email);
+            registerService.GenerateCodeRegister(username,password,email);
         }
 
         public void GenerateCodeInvitation(int id)
@@ -106,19 +107,34 @@ namespace Contracts
             matchService.SendMessage(isWhite,message, matchCode);
         }
 
-        public void sendConnection(bool white, string matchCode)
+        public void SendConnection(bool isWhite, string matchCode)
         {
-            matchService.sendConnection(white, matchCode);
+            matchService.SendConnection(isWhite, matchCode);
         }
 
-        public void getStats(int id)
+        public void GetStats(int id)
         {
-            GetStatsService.getStats(id);
+            GetStatsService.GetStats(id);
         }
 
-        public void giveUp(bool isWhite, string matchCode)
+        public void GiveUp(bool isWhite, string matchCode)
         {
-            matchService.giveUp(isWhite, matchCode);
+            matchService.GiveUp(isWhite, matchCode);
+        }
+
+        public void Win(bool isWhite, bool won, string matchCode)
+        {
+            matchService.Win(isWhite, won, matchCode);
+        }
+
+        public void Move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeleft)
+        {
+            matchService.Move(isWhite, matchCode, previousPosition, newPosition,timeleft);
+        }
+
+        public void GetRanking(int idUser)
+        {
+            rankingService.GetRanking(idUser);
         }
     }
 }

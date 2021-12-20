@@ -1,6 +1,6 @@
 ﻿/******************************************************************/
 /* Archivo: IRegisterService.cs                                   */
-/* Programador: Raul Peredo Estudillo                             */
+/* Programador: Daniel Diaz Rossell                             */
 /* Fecha: 18/oct/2021                                             */
 /* Fecha modificación: 22/oct/2021                                */
 /* Descripción: Interfaz donde se definen metodos del server para */
@@ -18,8 +18,8 @@ namespace Contracts.register
     [ServiceContract(CallbackContract = typeof(IRegisterClient))]
     interface IRegisterService
     {
-        [OperationContract]
-        bool GenerateCodeRegister(string username, string password, string email);
+        [OperationContract(IsOneWay = true)]
+        void GenerateCodeRegister(string username, string password, string email);
         [OperationContract(IsOneWay = true)]
         void VerificateCode(string codeuser);
     }

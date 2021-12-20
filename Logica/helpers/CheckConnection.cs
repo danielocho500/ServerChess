@@ -1,4 +1,12 @@
-﻿using Data;
+﻿/******************************************************************/
+/* Archivo: CheckConnection.cs                                    */
+/* Programador: Daniel Diaz Rossell                               */
+/* Fecha: 15/Oct/2021                                             */
+/* Fecha modificación:  15/Nov/2021                               */
+/* Descripción: Conexion con la base de datos                     */
+/******************************************************************/
+
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +17,7 @@ namespace Logica.helpers
 {
     public class CheckConnection
     {
-        public static bool isConnected()
+        public static bool IsConnected()
         {
             bool status = false;
             try

@@ -57,10 +57,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanRegister.cs" />
+    <Compile Include="Code.cs" />
     <Compile Include="Contacts.cs" />
+    <Compile Include="Crypt.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Connected.cs" />
+    <Compile Include="Email.cs" />
+    <Compile Include="Rank.cs" />
+    <Compile Include="Statics.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

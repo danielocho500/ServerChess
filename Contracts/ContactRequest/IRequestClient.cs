@@ -6,6 +6,8 @@
 /* Descripción: Interfaz para las definiciones de los metodos     */
 /*              del cliente para hacer inivtaciones               */
 /******************************************************************/
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,6 @@ namespace Contracts.ContactRequest
     interface IRequestClient
     {
         [OperationContract(IsOneWay = true)]
-        void SendRequestStatus(bool status,string msg);
+        void SendRequestStatus(int status);
     }
 }

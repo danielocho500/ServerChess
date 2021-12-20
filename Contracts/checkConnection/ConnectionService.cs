@@ -6,6 +6,8 @@
 /* Descripción: Servicio para verificar si hay conexión con el    */ 
 /*              server                                            */ 
 /******************************************************************/ 
+
+
 using Logica.helpers;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,15 @@ namespace Contracts.checkConnection
         {
 
             var connection = OperationContext.Current.GetCallbackChannel<IConnectionClient>();
-            bool status = CheckConnection.isConnected();
-            connection.IsConnected(status);
+            bool status = CheckConnection.IsConnected();
+            try
+            {
+                connection.IsConnected(status);
+            }
+            catch (CommunicationObjectAbortedException)
+            {
+            }
+            
         }
     }
 }

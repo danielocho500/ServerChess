@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: SendEmail.cs                                          */
+/* Programador: Raul Arturo Peredo Estudillo                      */
+/* Fecha: 15/Oct/2021                                             */
+/* Fecha modificación:  18/Oct/2021                               */
+/* Descripción: Envia codigo a correo                             */
+/******************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,10 +15,24 @@ using System.Threading.Tasks;
 
 namespace Logica.helpers
 {
-    public class SendEmail
+    public  class SendEmail
     {
-        public static bool send(string email, string code, string username)
+        public static bool Send(string email, string code, string username)
         {
+
+            if (email.Trim().EndsWith("."))
+            {
+                return false; 
+            }
+            try
+            {
+                new System.Net.Mail.MailAddress(email);
+            }
+            catch
+            {
+                return false;
+            }
+
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("superchess351@gmail.com");
             mail.Sender = new MailAddress("superchess351@gmail.com");

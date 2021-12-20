@@ -1,4 +1,14 @@
-﻿using Logica;
+﻿/******************************************************************/
+/* Archivo: MatchService.cs                                       */
+/* Programador: Daniel Diaz Rossell                               */
+/* Fecha: 30/oct/2021                                             */
+/* Fecha modificación: 10/Nov/2021                                */
+/* Descripción: Interfaz donde se definen metodos del servidor    */
+/*               pora el servicio Match                           */
+/******************************************************************/
+
+using Contracts.friendsConnected;
+using Logica;
 using Logica.stats;
 using System;
 using System.Collections.Generic;
@@ -12,8 +22,9 @@ namespace Contracts.match
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     class MatchService : IMatchService
     {
-        public void giveUp(bool isWhite, string matchCode)
-        {
+        public void GiveUp(bool isWhite, string matchCode)
+        {  
+
             Match match = Globals.Matches[matchCode];
             
             Stats statsWhite = new Stats(match.idWhite);
@@ -26,19 +37,69 @@ namespace Contracts.match
 
             if (isWhite)
             {
-                match.idWhiteConnection.MatchEnds(false,oldEloWhite,newEloWhite);
-                match.idBlackConnection.MatchEnds(true, oldEloBlack, newEloBlack);
+                try
+                {
+                    match.idWhiteConnection.MatchEnds(false, oldEloWhite, newEloWhite);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }
+                try
+                {
+                    match.idBlackConnection.MatchEnds(true, oldEloBlack, newEloBlack);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }                
             }
             else
             {
-                match.idWhiteConnection.MatchEnds(true, oldEloWhite, newEloWhite);
-                match.idBlackConnection.MatchEnds(false, oldEloBlack, newEloBlack);
+                try
+                {
+                    match.idWhiteConnection.MatchEnds(true, oldEloWhite, newEloWhite);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }
+                try
+                {
+                    match.idBlackConnection.MatchEnds(false, oldEloBlack, newEloBlack);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }                
             }
 
             Globals.Matches.Remove(matchCode);
         }
 
-        public void sendConnection(bool isWhite, string matchCode)
+        public void Move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeleft)
+        {
+            try
+            {
+                if (isWhite)
+                {
+                    Globals.Matches[matchCode].idBlackConnection.MovePiece(previousPosition, newPosition, timeleft);
+                }
+                else
+                {
+                    Globals.Matches[matchCode].idWhiteConnection.MovePiece(previousPosition, newPosition, timeleft);
+                }
+            }
+            catch (CommunicationObjectAbortedException)
+            {
+                int idLoseConection = (isWhite) ? Globals.Matches[matchCode].idBlack : Globals.Matches[matchCode].idWhite;
+                if (Globals.UsersConnected.Keys.Contains(idLoseConection))
+                {
+                    FriendService friendService = new FriendService();
+                    friendService.Disconnected(idLoseConection);
+                }
+
+                GiveUp(!isWhite, matchCode);
+            }
+        }
+
+        public void SendConnection(bool isWhite, string matchCode)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IMatchClient>();
 
@@ -58,12 +119,84 @@ namespace Contracts.match
                 return;
 
             Match match = Globals.Matches[matchCode];
-            if (isWhite)
-                match.idBlackConnection.ReciveMessage(message, GetHourFormat());
-            else
-                match.idWhiteConnection.ReciveMessage(message, GetHourFormat());
+            try
+            {
+                if (isWhite)
+                    match.idBlackConnection.ReciveMessage(message, GetHourFormat());
+                else
+                    match.idWhiteConnection.ReciveMessage(message, GetHourFormat());
+            }
+            catch (CommunicationObjectAbortedException)
+            {
+                int idLoseConection = (isWhite) ? match.idBlack : match.idWhite;
+                
+                if (Globals.UsersConnected.Keys.Contains(idLoseConection))
+                {
+                    FriendService friendService = new FriendService();
+                    friendService.Disconnected(idLoseConection);
+                }
+
+                GiveUp(!isWhite, matchCode);
+            }
         }
 
+        public void Win(bool isWhite, bool won, string matchCode)
+        {
+            Match match;
+            try
+            {
+                match = Globals.Matches[matchCode];
+            }
+            catch (KeyNotFoundException)
+            {
+                return;
+            }
+
+            Stats statsWhite = new Stats(match.idWhite);
+            int oldEloWhite = statsWhite.GetEloActual();
+            int newEloWhite = statsWhite.win(!isWhite);
+
+            Stats statsBlack = new Stats(match.idBlack);
+            int oldEloBlack = statsBlack.GetEloActual();
+            int newEloBlack = statsBlack.win(isWhite);
+            if (isWhite)
+            {
+                try
+                {
+                    match.idBlackConnection.MatchEnds(true, oldEloBlack, newEloBlack);
+
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }
+                try
+                {
+                    match.idWhiteConnection.MatchEnds(false, oldEloWhite, newEloWhite);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }
+            }
+            else
+            {
+                try
+                {
+                    match.idWhiteConnection.MatchEnds(true, oldEloWhite, newEloWhite);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }
+                try
+                {
+                    match.idBlackConnection.MatchEnds(false, oldEloBlack, newEloBlack);
+                }
+                catch (CommunicationObjectAbortedException)
+                {
+                }
+            }
+
+         }
+            
         private string GetHourFormat()
         {
             var date = DateTime.Now;

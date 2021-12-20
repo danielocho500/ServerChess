@@ -1,5 +1,14 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: Stats.cs                                            */
+/* Programador: Daniel Diaz Rossell                               */
+/* Fecha: 15/Oct/2021                                             */
+/* Fecha modificación:  15/Nov/2021                               */
+/* Descripción: Logica para las consulas te request               */
+/******************************************************************/
+
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +21,6 @@ namespace Logica.stats
         private int id;
         private int Matches_played;
         private int Matches_win;
-        private Decimal WinP;
         private int eloMax;
         private int eloActual;
         private bool userExist;
@@ -21,35 +29,41 @@ namespace Logica.stats
             id = id_;
             userExist = false;
 
-            using (var context = new SuperChess())
+            try
             {
-                var user = from User in context.Users
-                                where User.id_user == id
-                                select User;
-
-                if (user.Count() > 0)
-                    userExist = true;
-
-                if (userExist)
+                using (var context = new SuperChess())
                 {
-                    var stats = from Stat in context.Stats_Player
-                                where Stat.id_user == id
-                                select Stat;
+                    var user = from User in context.Users
+                               where User.id_user == id
+                               select User;
 
-                    var stat = stats.First();
+                    if (user.Count() > 0)
+                        userExist = true;
 
-                    Matches_played = stat.total_played;
-                    Matches_win = stat.total_win;
-                    eloMax = stat.elo_max;
-                    eloActual = stat.elo_actual;
+                    if (userExist)
+                    {
+                        var stats = from Stat in context.Stats_Player
+                                    where Stat.id_user == id
+                                    select Stat;
+
+                        var stat = stats.First();
+
+                        Matches_played = stat.total_played;
+                        Matches_win = stat.total_win;
+                        eloMax = stat.elo_max;
+                        eloActual = stat.elo_actual;
+                    }
+                    else
+                    {
+                        Matches_played = -1;
+                        eloMax = -1;
+                        eloActual = -1;
+                    }
                 }
-                else
-                {
-                    Matches_played = -1;
-                    WinP = -1;
-                    eloMax = -1;
-                    eloActual = -1;
-                }
+            }
+            catch (EntitySqlException e)
+            {
+                Console.WriteLine("Error in Stats.cs ", e);
             }
 
         }

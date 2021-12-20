@@ -13,6 +13,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Logica.login;
+using Contracts.friendsConnected;
 
 namespace Contracts.login
 {
@@ -22,25 +23,38 @@ namespace Contracts.login
         public void Login(string username, string password)
         {
 
+            int status = LoginAccount.Login(username, password);
 
-            LoginStatus status = LoginAccount.loginAccount(username, password);
             var connection = OperationContext.Current.GetCallbackChannel<ILoginClient>();
 
-            if (status == LoginStatus.Success)
+            int idUser = UserHelper.GetIdUser(username);
+
+            try
             {
-                int idUser = UserHelper.GetIdUser(username);
-                //Aqui por ejemplo usa el globals para ver si alguien ya esta
-                if (Globals.UsersConnected.Keys.Contains(idUser))
+                if (FriendService.StillConnected(idUser))
                 {
-                    connection.LoginStatus(false, "Account is already logged", -1);
+                    connection.LoginStatus(3, -1);
                     return;
                 }
-                connection.LoginStatus(true, "Logged",idUser);
+
+
+                if (status == 0)
+                {
+                    connection.LoginStatus(status, idUser);
+                }
+                else
+                {
+                    connection.LoginStatus(status, -1);
+                }
             }
-            else if (status == LoginStatus.notExist)
-                connection.LoginStatus(false, "the accound dosen't exist", -1);
-            else
-                connection.LoginStatus(false, "Error trying to log", -1);
+            catch (CommunicationObjectAbortedException)
+            {
+                if (Globals.UsersConnected.Keys.Contains(idUser))
+                {
+                    FriendService friendService = new FriendService();
+                    friendService.Disconnected(idUser);
+                }
+            }
         }
     }
 }

@@ -18,11 +18,10 @@ namespace Contracts.sendInvitation
     [ServiceContract]
     interface ISendInvitationClient
     {
-        //todo: a validate if the code is false
         [OperationContract(IsOneWay = true)]
         void GetCodeMatch(bool status, string code);
         [OperationContract(IsOneWay = true)]
-        void ValidateCodeStatus(bool status, string usernameRival, string username, string codeMatch, bool white);
+        void ValidateCodeStatus(int status, string usernameRival, string username, string codeMatch, bool white);
         [OperationContract(IsOneWay = true)]
         void JoinMatch(string usernameRival, string username, string codeMatch, bool white);
     }

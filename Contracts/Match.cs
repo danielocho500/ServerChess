@@ -1,5 +1,5 @@
 ﻿/******************************************************************/
-/* Archivo: Globals.cs                                            */
+/* Archivo: Match.cs                                            */
 /* Programador: Raul Peredo Estudillo                             */
 /* Fecha: 6/nov/2021                                              */
 /* Fecha modificación: 6/nov/2021                                 */

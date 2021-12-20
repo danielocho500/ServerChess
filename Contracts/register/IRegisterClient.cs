@@ -1,6 +1,6 @@
 ﻿/******************************************************************/
 /* Archivo: IRegisterClient.cs                                    */
-/* Programador: Raul Peredo Estudillo                             */
+/* Programador: Daniel Diaz Rossell                               */
 /* Fecha: 18/oct/2021                                             */
 /* Fecha modificación: 22/oct/2021                                */
 /* Descripción: Interfaz donde se definen metodos callback del    */
@@ -19,6 +19,8 @@ namespace Contracts.register
     interface IRegisterClient
     {
         [OperationContract(IsOneWay = true)]
-        void ValidateCode(bool codeStatus, int message);
+        void ValidateCode(int status);
+        [OperationContract(IsOneWay = true)]
+        void CodeRecieve(int status);
     }
 }
