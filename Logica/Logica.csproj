@@ -60,6 +60,7 @@
     <Compile Include="helpers\SendEmail.cs" />
     <Compile Include="login\LoginAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ranking\RankingUser.cs" />
     <Compile Include="register\Register.cs" />
     <Compile Include="request\Request.cs" />
     <Compile Include="stats\Stats.cs" />
@@ -70,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{CD5C7CFA-065A-48F8-97AB-54747B569588}</Project>
+      <Project>{5D21F499-04BE-4AE6-A944-27BE113EBDAB}</Project>
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>

@@ -22,25 +22,19 @@ namespace Contracts.login
         public void Login(string username, string password)
         {
 
+            int status = LoginAccount.loginAccount(username, password);
 
-            LoginStatus status = LoginAccount.loginAccount(username, password);
             var connection = OperationContext.Current.GetCallbackChannel<ILoginClient>();
-
-            if (status == LoginStatus.Success)
+            
+            if(status == 0)
             {
                 int idUser = UserHelper.GetIdUser(username);
-                //Aqui por ejemplo usa el globals para ver si alguien ya esta
-                if (Globals.UsersConnected.Keys.Contains(idUser))
-                {
-                    connection.LoginStatus(false, "Account is already logged", -1);
-                    return;
-                }
-                connection.LoginStatus(true, "Logged",idUser);
+                connection.LoginStatus(status, idUser);
             }
-            else if (status == LoginStatus.notExist)
-                connection.LoginStatus(false, "the accound dosen't exist", -1);
             else
-                connection.LoginStatus(false, "Error trying to log", -1);
+            {
+                connection.LoginStatus(status, -1);
+            }
         }
     }
 }

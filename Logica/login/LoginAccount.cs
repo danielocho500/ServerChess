@@ -1,7 +1,13 @@
-﻿using Data;
+﻿/******************************************************************/
+/* Archivo: ChessService.cs                                       */
+/* Programador: Daniel Díaz Rossell                               */
+/* Fecha: 15/oct/2021                                             */
+/* Fecha modificación: 12/nov/2021                                */
+/* Descripción: Logica para iniciar sesión                        */
+/******************************************************************/
+using Data;
 using Logica.helpers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,32 +21,43 @@ namespace Logica.login
  
         }
 
-        public static LoginStatus loginAccount(string username, string password)
+        public static int loginAccount(string username, string password)
         {
-            LoginStatus status = LoginStatus.failed;
+                LoginStatus status = LoginStatus.failed;
 
-            string ps = Encrypt.GetSHA256(password);
+                string ps = Encrypt.GetSHA256(password);
 
-            using (var context = new SuperChess())
-            {
-                var AccountExist = from User in context.Users
-                                   where User.username == username && User.password == ps
-                                   select User;
+                //empty fields
+                if (username.Trim() == "" || password.Trim() == "")
+                    return 3;
 
-                if (AccountExist.Count() > 0)
-                    status = LoginStatus.Success;
+                using (var context = new SuperChess())
+                {
+                    var AccountExist = from User in context.Users
+                                       where User.username == username && User.password == ps
+                                       select User;
+
+                    if (AccountExist.Count() > 0)
+                        status = LoginStatus.Success;
+                    else
+                        status = LoginStatus.notExist;
+                }
+
+                if (status == LoginStatus.Success)
+                    return 0;
                 else
-                    status = LoginStatus.notExist;
-            }
-
-            return status;
+                {
+                    return 2;
+                }
+        
         }
     }
 
     public enum LoginStatus
     {
         Success = 0,
-        failed,
-        notExist
+        failed = 1,
+        notExist = 2,
+        empty = 3
     }
 }

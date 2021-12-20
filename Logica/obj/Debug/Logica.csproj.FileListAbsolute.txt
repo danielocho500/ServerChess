@@ -1,18 +1,3 @@
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Logica.dll
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Logica.pdb
-C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.csproj.AssemblyReference.cache
-C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.csproj.CoreCompileInputs.cache
-C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.dll
-C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.pdb
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Logica.dll.config
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Data.dll
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.dll
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Data.pdb
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Data.dll.config
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.xml
-C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.csproj.CopyComplete
 C:\Users\peres\Downloads\Server (1)\Server\Logica\bin\Debug\Logica.dll.config
 C:\Users\peres\Downloads\Server (1)\Server\Logica\bin\Debug\Logica.dll
 C:\Users\peres\Downloads\Server (1)\Server\Logica\bin\Debug\Logica.pdb
@@ -73,3 +58,18 @@ C:\Users\peres\Downloads\chess\chess\Server\Logica\obj\Debug\Logica.csproj.CoreC
 C:\Users\peres\Downloads\chess\chess\Server\Logica\obj\Debug\Logica.csproj.CopyComplete
 C:\Users\peres\Downloads\chess\chess\Server\Logica\obj\Debug\Logica.dll
 C:\Users\peres\Downloads\chess\chess\Server\Logica\obj\Debug\Logica.pdb
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Logica.dll.config
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Logica.dll
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Logica.pdb
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Data.dll
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.dll
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Data.pdb
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\Data.dll.config
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.xml
+C:\Users\danie\Desktop\chess\Server\Logica\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.csproj.AssemblyReference.cache
+C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.csproj.CopyComplete
+C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.dll
+C:\Users\danie\Desktop\chess\Server\Logica\obj\Debug\Logica.pdb

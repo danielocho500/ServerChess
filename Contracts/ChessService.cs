@@ -21,11 +21,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Contracts.getStats;
+using Contracts.ranking;
 
 namespace Contracts
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
-    class ChessService : IRegisterService, ILoginService, IConnectionService, IRequestService, IRespondService, IFriendService, ISendInvitationService, IMatchService, IGetStatsService
+    class ChessService : IRegisterService, ILoginService, IConnectionService, IRequestService, IRespondService, IFriendService, ISendInvitationService, IMatchService, IGetStatsService, IRankingService
     {
         public RegisterService registerService = new RegisterService();
         public LoginService loginService = new LoginService();
@@ -36,7 +37,7 @@ namespace Contracts
         public SendInvitation sendInvitation = new SendInvitation();
         public MatchService matchService = new MatchService();
         public GetStatsService GetStatsService = new GetStatsService();
-       
+        public RankingService rankingService = new RankingService();
 
         public void Check()
         {
@@ -129,6 +130,11 @@ namespace Contracts
         public void move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeLeft)
         {
             matchService.move(isWhite, matchCode, previousPosition, newPosition,timeLeft);
+        }
+
+        public void getRanking()
+        {
+            rankingService.getRanking();
         }
     }
 }

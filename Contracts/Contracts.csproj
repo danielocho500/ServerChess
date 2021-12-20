@@ -78,6 +78,9 @@
     <Compile Include="Match.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ranking\IRankingClient.cs" />
+    <Compile Include="ranking\IRankingService.cs" />
+    <Compile Include="ranking\RankingService.cs" />
     <Compile Include="register\IRegisterClient.cs" />
     <Compile Include="register\IRegisterService.cs" />
     <Compile Include="register\RegisterService.cs" />
