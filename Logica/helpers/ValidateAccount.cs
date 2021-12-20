@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Data;
 
-namespace Logica.Email
+namespace Logica.AccountExist
 {
-    public class Email
+    public class AccountExist
     {
         public static AccountExistStatus exist(string email, string username)
         {
-            using (var context = new ChessModel())
+            using (var context = new SuperChess())
             {
                 var emailExist = from Usuario in context.Usuarios
                                  where Usuario.email == email 

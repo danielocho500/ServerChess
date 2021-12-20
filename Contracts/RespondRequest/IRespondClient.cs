@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts.register
+namespace Contracts.RespondRequest
 {
     [ServiceContract]
-    interface IRegisterClient
+    interface IRespondClient
     {
         [OperationContract(IsOneWay = true)]
-        void ValidateCode(bool codeStatus, int message);
+        void ReciveRequest(Dictionary<int,string> users);
     }
 }

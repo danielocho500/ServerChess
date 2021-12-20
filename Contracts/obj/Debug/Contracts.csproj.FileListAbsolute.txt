@@ -16,3 +16,38 @@ C:\Users\danie\Desktop\chess\Server\Contracts\bin\Debug\Data.dll.config
 C:\Users\danie\Desktop\chess\Server\Contracts\bin\Debug\EntityFramework.xml
 C:\Users\danie\Desktop\chess\Server\Contracts\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\danie\Desktop\chess\Server\Contracts\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\obj\Debug\Contracts.csproj.AssemblyReference.cache
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\obj\Debug\Contracts.csproj.CoreCompileInputs.cache
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\obj\Debug\Contracts.exe
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\obj\Debug\Contracts.pdb
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Contracts.exe.config
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Contracts.exe
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Contracts.pdb
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\EntityFramework.dll
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Logica.dll
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Data.dll
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Logica.pdb
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Logica.dll.config
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\EntityFramework.xml
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Data.pdb
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\bin\Debug\Data.dll.config
+C:\Users\peres\Downloads\Server (1)\Server\Contracts\obj\Debug\Contracts.csproj.CopyComplete
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Contracts.exe.config
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Contracts.exe
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Contracts.pdb
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\EntityFramework.dll
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Logica.dll
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Data.dll
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Logica.pdb
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Logica.dll.config
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\EntityFramework.xml
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Data.pdb
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\bin\Debug\Data.dll.config
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\obj\Debug\Contracts.csproj.AssemblyReference.cache
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\obj\Debug\Contracts.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\obj\Debug\Contracts.exe
+C:\Users\danie\Desktop\Server (1)\Server\Contracts\obj\Debug\Contracts.pdb

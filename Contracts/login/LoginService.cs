@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logica.helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -18,11 +19,14 @@ namespace Contracts.login
             var connection = OperationContext.Current.GetCallbackChannel<ILoginClient>();
 
             if (status == LoginStatus.Success)
-                connection.LoginStatus(true, "Logged");
+            {
+                int idUser = UserHelper.getIdUser(username);
+                connection.LoginStatus(true, "Logged",idUser);
+            }
             else if (status == LoginStatus.notExist)
-                connection.LoginStatus(false, "the accound dosen't exist");
+                connection.LoginStatus(false, "the accound dosen't exist", -1);
             else
-                connection.LoginStatus(false, "Error trying to log");
+                connection.LoginStatus(false, "Error trying to log", -1);
         }
     }
 }

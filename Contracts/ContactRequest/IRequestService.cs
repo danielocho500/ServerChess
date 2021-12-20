@@ -5,12 +5,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts.register
+namespace Contracts.ContactRequest
 {
-    [ServiceContract]
-    interface IRegisterClient
+    [ServiceContract(CallbackContract = typeof(IRequestClient))]
+    interface IRequestService
     {
         [OperationContract(IsOneWay = true)]
-        void ValidateCode(bool codeStatus, int message);
+        void sendRequest(string username, int idUser);
     }
 }

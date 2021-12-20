@@ -51,12 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="helpers\CheckConnection.cs" />
+    <Compile Include="helpers\ContactsHelper.cs" />
+    <Compile Include="helpers\Encrypt.cs" />
+    <Compile Include="helpers\UserHelper.cs" />
     <Compile Include="helpers\ValidateAccount.cs" />
     <Compile Include="helpers\GenerateCode.cs" />
     <Compile Include="helpers\SendEmail.cs" />
     <Compile Include="login\LoginAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="register\Register.cs" />
+    <Compile Include="request\Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -64,11 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{884E2E26-9224-4BA0-8691-3A6F21DC24B4}</Project>
+      <Project>{78FEFEFD-26C4-483D-8E66-1E0D088BEAE7}</Project>
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

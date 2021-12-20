@@ -11,6 +11,6 @@ namespace Contracts.login
     interface ILoginClient
     {
         [OperationContract(IsOneWay = true)]
-        void LoginStatus(bool status, string message);
+        void LoginStatus(bool status, string message, int idUser);
     }
 }

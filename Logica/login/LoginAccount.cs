@@ -1,4 +1,5 @@
 ﻿using Data;
+using Logica.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,12 @@ namespace Logica.login
         {
             LoginStatus status = LoginStatus.failed;
 
-            using (var context = new ChessModel())
+            string ps = Encrypt.GetSHA256(password);
+
+            using (var context = new SuperChess())
             {
                 var AccountExist = from Usuario in context.Usuarios
-                                   where Usuario.username == username && Usuario.password == password
+                                   where Usuario.username == username && Usuario.password == ps
                                    select Usuario;
 
                 if (AccountExist.Count() > 0)
