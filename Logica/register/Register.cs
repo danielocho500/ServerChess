@@ -1,4 +1,5 @@
 ﻿using Data;
+using Logica.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,14 @@ namespace Logica.register
         public RegisterStatus RegisterAccount(string username, string password, string email)
         {
             RegisterStatus status = RegisterStatus.Failed;
+            string ps = Encrypt.GetSHA256(password);
 
-            using (var context = new ChessModel())
+            using (var context = new SuperChess())
             {
                 Usuario newUser = new Usuario()
                 {
                     username = username,
-                    password = password,
+                    password = ps,
                     email = email,
                     codigo_cuenta = 99999
                 };

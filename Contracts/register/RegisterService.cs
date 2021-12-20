@@ -10,7 +10,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
-using Logica.Email;
+using static Logica.AccountExist.AccountExist;
 
 namespace Contracts.register
 {
@@ -20,9 +20,9 @@ namespace Contracts.register
         Dictionary<IRegisterClient, UserData> codes = new Dictionary<IRegisterClient, UserData>();
         public bool generateCode(string username, string password, string email)
         {
-            Email.AccountExistStatus status = Email.exist(email, username);
+           AccountExistStatus status = exist(email, username);
 
-            if (status == Email.AccountExistStatus.emailExist || status == Email.AccountExistStatus.userExist)
+            if (status == AccountExistStatus.emailExist || status == AccountExistStatus.userExist)
                 return false;
 
             string code = GenerateCode.GetVerificationCode(6);
@@ -50,7 +50,7 @@ namespace Contracts.register
 
             if (codeServer != codeUser) 
             {
-                connection.ValidateCode(false, "The code is invalid");
+                connection.ValidateCode(false, 1);
             }
 
             else
@@ -59,13 +59,16 @@ namespace Contracts.register
                 string password = codes[connection].getPassword();
                 string email = codes[connection].getEmail();
 
+
                 Register register = new Register();
                 RegisterStatus status = register.RegisterAccount(username, password, email);
 
+
+
                 if (status == RegisterStatus.Success)
-                    connection.ValidateCode(true, "Account Registered");
+                    connection.ValidateCode(true, 0);
                 else
-                    connection.ValidateCode(false, "Connection lost with the database");
+                    connection.ValidateCode(false, 2);
             }
         }
     }

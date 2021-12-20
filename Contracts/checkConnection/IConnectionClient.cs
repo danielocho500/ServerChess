@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceModel;
+using System.Runtime.Serialization;
 
-namespace Contracts.register
+namespace Contracts.checkConnection
 {
     [ServiceContract]
-    interface IRegisterClient
+    interface IConnectionClient
     {
         [OperationContract(IsOneWay = true)]
-        void ValidateCode(bool codeStatus, int message);
+        void isConnected(bool status);
+
+
     }
 }
