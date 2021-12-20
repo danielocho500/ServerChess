@@ -11,11 +11,13 @@ namespace Contracts.match
     interface IMatchService
     {
         [OperationContract(IsOneWay = true)]
-        void SendMessage(string message, string matchCode);
+        void SendMessage(bool isWhite, string message, string matchCode);
 
         [OperationContract(IsOneWay = true)]
-        void sendConnection(bool white, string matchCode);
+        void sendConnection(bool isWhite, string matchCode);
 
+        [OperationContract(IsOneWay = true)]
+        void giveUp(bool isWhite, string matchCode);
 
     }
 }

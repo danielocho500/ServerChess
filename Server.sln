@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{96EF9CDB-A92C-45AB-BDB9-F8E40C9244B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{9B239EF5-EBA6-468B-B4E7-3262AC825D24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{CD5C7CFA-065A-48F8-97AB-54747B569588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{96EF9CDB-A92C-45AB-BDB9-F8E40C9244B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96EF9CDB-A92C-45AB-BDB9-F8E40C9244B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96EF9CDB-A92C-45AB-BDB9-F8E40C9244B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B239EF5-EBA6-468B-B4E7-3262AC825D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B239EF5-EBA6-468B-B4E7-3262AC825D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B239EF5-EBA6-468B-B4E7-3262AC825D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B239EF5-EBA6-468B-B4E7-3262AC825D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD5C7CFA-065A-48F8-97AB-54747B569588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD5C7CFA-065A-48F8-97AB-54747B569588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD5C7CFA-065A-48F8-97AB-54747B569588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5C7CFA-065A-48F8-97AB-54747B569588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

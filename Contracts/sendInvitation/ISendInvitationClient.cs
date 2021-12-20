@@ -22,8 +22,8 @@ namespace Contracts.sendInvitation
         [OperationContract(IsOneWay = true)]
         void GetCodeMatch(bool status, string code);
         [OperationContract(IsOneWay = true)]
-        void ValidateCodeStatus(bool status, string usernameRival, string codeMatch, bool white);
+        void ValidateCodeStatus(bool status, string usernameRival, string username, string codeMatch, bool white);
         [OperationContract(IsOneWay = true)]
-        void JoinMatch(string usernameRival, string codeMatch, bool white);
+        void JoinMatch(string usernameRival, string username, string codeMatch, bool white);
     }
 }

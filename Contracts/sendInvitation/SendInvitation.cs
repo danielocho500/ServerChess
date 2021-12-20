@@ -58,7 +58,7 @@ namespace Contracts.sendInvitation
                 Match match = Globals.Matches[key];
                 if(match.idWhite == id || match.idBlack == id)
                 {
-                    connection.ValidateCodeStatus(false, "", "", false);
+                    connection.ValidateCodeStatus(false, "", "","", false);
                     return;
                 }
 
@@ -73,15 +73,15 @@ namespace Contracts.sendInvitation
                 //validate if the rival user is still connected
                 if (!Globals.UsersConnected.Keys.Contains(idRival))
                 {
-                    connection.ValidateCodeStatus(false, "", "",false);
+                    connection.ValidateCodeStatus(false, "","", "",false);
                     return;
                 }
 
                 //crete the match
                 Globals.Matches[code] = new Match(idRival, id);
                 
-                connection.ValidateCodeStatus(true,usernameRival,code,false);
-                invitations[code].connection.JoinMatch(usernameActual,code,true);
+                connection.ValidateCodeStatus(true,usernameRival,usernameActual,code,false);
+                invitations[code].connection.JoinMatch(usernameActual,usernameRival,code,true);
 
                 
 
@@ -89,7 +89,7 @@ namespace Contracts.sendInvitation
             }
             else
             {
-                connection.ValidateCodeStatus(false, "", "",false);
+                connection.ValidateCodeStatus(false, "","", "",false);
             }
         }
     }

@@ -25,7 +25,7 @@ namespace Logica.register
 
                 using (var context = new SuperChess())
                 {
-                    Users newUser = new Users()
+                    User newUser = new User()
                     {
                         username = username,
                         password = ps,
@@ -33,8 +33,22 @@ namespace Logica.register
                     };
 
                     context.Users.Add(newUser);
-                    int entries = context.SaveChanges();
+
                     context.SaveChanges();
+
+                    Stats_Player stats_Player = new Stats_Player()
+                    {
+                        total_win = 0,
+                        total_played = 0,
+                        elo_actual = 0,
+                        elo_max = 0,
+                        id_user = newUser.id_user
+                    };
+
+                    context.Stats_Player.Add(stats_Player);
+
+                    int entries = context.SaveChanges();
+                    
 
 
 

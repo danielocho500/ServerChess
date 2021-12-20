@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Logica.helpers
 {
     public class ContactsHelper
@@ -52,7 +53,7 @@ namespace Logica.helpers
 
             using( var context = new SuperChess())
             {
-                Friends request = new Friends()
+                Friend request = new Friend()
                 {
                     friend_A = idSend,
                     friend_B = idRecive,

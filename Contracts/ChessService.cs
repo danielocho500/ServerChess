@@ -20,11 +20,12 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using Contracts.getStats;
 
 namespace Contracts
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
-    class ChessService : IRegisterService, ILoginService, IConnectionService, IRequestService, IRespondService, IFriendService, ISendInvitationService, IMatchService
+    class ChessService : IRegisterService, ILoginService, IConnectionService, IRequestService, IRespondService, IFriendService, ISendInvitationService, IMatchService, IGetStatsService
     {
         public RegisterService registerService = new RegisterService();
         public LoginService loginService = new LoginService();
@@ -34,6 +35,7 @@ namespace Contracts
         public FriendService friendService = new FriendService();
         public SendInvitation sendInvitation = new SendInvitation();
         public MatchService matchService = new MatchService();
+        public GetStatsService GetStatsService = new GetStatsService();
        
 
         public void Check()
@@ -91,7 +93,6 @@ namespace Contracts
 
         public void ValidateCodeInvitation(int id, string code)
         {
-            Console.WriteLine(id);
             sendInvitation.ValidateCodeInvitation(id, code);
         }
 
@@ -100,14 +101,24 @@ namespace Contracts
             registerService.VerificateCode(codeuser);
         }
 
-        public void SendMessage(string message, string matchCode)
+        public void SendMessage(bool isWhite,string message, string matchCode)
         {
-            matchService.SendMessage(message, matchCode);
+            matchService.SendMessage(isWhite,message, matchCode);
         }
 
         public void sendConnection(bool white, string matchCode)
         {
             matchService.sendConnection(white, matchCode);
+        }
+
+        public void getStats(int id)
+        {
+            GetStatsService.getStats(id);
+        }
+
+        public void giveUp(bool isWhite, string matchCode)
+        {
+            matchService.giveUp(isWhite, matchCode);
         }
     }
 }

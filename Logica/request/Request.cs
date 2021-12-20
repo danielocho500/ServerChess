@@ -1,6 +1,4 @@
-﻿
-
-using Logica.helpers;
+﻿using Logica.helpers;
 
 namespace Logica.request 
 {

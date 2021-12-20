@@ -10,6 +10,8 @@ namespace Contracts.match
     public interface IMatchClient
     {
         [OperationContract(IsOneWay = true)]
-        void ReciveMessage(string message);
+        void ReciveMessage(string message,string time);
+        [OperationContract(IsOneWay = true)]
+        void MatchEnds(bool youWon, int oldElo,int newElo);
     }
 }

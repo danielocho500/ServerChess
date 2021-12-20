@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="getStats\GetStatsService.cs" />
+    <Compile Include="getStats\IGetStatsClient.cs" />
+    <Compile Include="getStats\IGetStatsService.cs" />
     <Compile Include="match\MatchService.cs" />
     <Compile Include="match\IMatchService.cs" />
     <Compile Include="match\IMatchClient.cs" />
