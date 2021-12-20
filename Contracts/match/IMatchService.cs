@@ -19,5 +19,11 @@ namespace Contracts.match
         [OperationContract(IsOneWay = true)]
         void giveUp(bool isWhite, string matchCode);
 
+        [OperationContract(IsOneWay = true)]
+        void win(bool isWhite,bool won, string matchCode);
+
+        [OperationContract(IsOneWay = true)]
+        void move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeleft);
+
     }
 }

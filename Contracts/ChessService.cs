@@ -120,5 +120,15 @@ namespace Contracts
         {
             matchService.giveUp(isWhite, matchCode);
         }
+
+        public void win(bool isWhite, bool won, string matchCode)
+        {
+            matchService.win(isWhite, won, matchCode);
+        }
+
+        public void move(bool isWhite, string matchCode, string previousPosition, string newPosition, int timeLeft)
+        {
+            matchService.move(isWhite, matchCode, previousPosition, newPosition,timeLeft);
+        }
     }
 }
