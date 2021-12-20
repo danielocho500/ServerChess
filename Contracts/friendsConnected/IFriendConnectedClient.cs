@@ -21,15 +21,12 @@ namespace Contracts.friendsConnected
 
     interface IFriendConnectedClient
     {
+        //mETODOs del cliente
         [OperationContract(IsOneWay = true)]
         void GetUsers(string[] usernamesConnected, string[] usernamesDisconnected);
         [OperationContract(IsOneWay = true)]
         void NewConecction(string username);
         [OperationContract(IsOneWay = true)]
         void NewDisconecction(string username);
-        [OperationContract(IsOneWay = true)]
-        void SeeConecction();
-        [OperationContract(IsOneWay = true)]
-        void newFriend(string username, bool connected);
     }
 }

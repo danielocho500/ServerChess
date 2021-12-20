@@ -19,6 +19,6 @@ namespace Contracts.ContactRequest
     interface IRequestClient
     {
         [OperationContract(IsOneWay = true)]
-        void SendRequestStatus(int status);
+        void SendRequestStatus(bool status,string msg);
     }
 }

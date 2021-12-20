@@ -1,11 +1,11 @@
-﻿using Logica.helpers;
+﻿using Data;
+using Logica.helpers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Data;
 
 namespace Logica.register
 {
@@ -16,16 +16,16 @@ namespace Logica.register
 
         }
 
-        public int RegisterAccount(string username, string password, string email)
+        public RegisterStatus RegisterAccount(string username, string password, string email)
         {
             try
             {
-                int status = 1;
+                RegisterStatus status = RegisterStatus.Failed;
                 string ps = Encrypt.GetSHA256(password);
 
                 using (var context = new SuperChess())
                 {
-                    User newUser = new User()
+                    Users newUser = new Users()
                     {
                         username = username,
                         password = ps,
@@ -54,7 +54,7 @@ namespace Logica.register
 
                     if (entries > 0)
                     {
-                        status = 0;
+                        status = RegisterStatus.Success;
                     }
                 }
 
@@ -62,7 +62,7 @@ namespace Logica.register
             } catch (DbUpdateException e)
             {
                 Console.WriteLine("Register.cs " + e);
-                return 1;
+                return RegisterStatus.Failed;
             }
         }
     }
@@ -70,6 +70,6 @@ namespace Logica.register
     public enum RegisterStatus
     {
         Success = 0,
-        Failed = 1
+        Failed
     }
 }

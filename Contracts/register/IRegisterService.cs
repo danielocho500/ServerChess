@@ -18,8 +18,8 @@ namespace Contracts.register
     [ServiceContract(CallbackContract = typeof(IRegisterClient))]
     interface IRegisterService
     {
-        [OperationContract(IsOneWay = true)]
-        void GenerateCodeRegister(string username, string password, string email);
+        [OperationContract]
+        bool GenerateCodeRegister(string username, string password, string email);
         [OperationContract(IsOneWay = true)]
         void VerificateCode(string codeuser);
     }

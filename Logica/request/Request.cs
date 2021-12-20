@@ -4,51 +4,51 @@ namespace Logica.request
 {
     public class Request
     {
-        public static int Send(string userRecieve, int idSend)
+        public static RequestStatus send(string user, int idSend)
         {
-            bool exist = UserHelper.Exist(userRecieve);
+            bool exist = UserHelper.Exist(user);
 
             if (!exist)
-                return 5;
+                return RequestStatus.UserNotFound;
 
-            var idRecive = UserHelper.GetIdUser(userRecieve);
+            var idRecive = UserHelper.GetIdUser(user);
 
             if (idRecive == idSend)
-                return 6;
+                return RequestStatus.AutoRequest;
 
-            ContactsStatus contactsStatus = ContactsHelper.ContactsRelation(idSend, idRecive);
+            ContactsStatus contactsStatus = ContactsHelper.contactsStatus(idSend, idRecive);
 
 
             switch (contactsStatus)
             {
                 case ContactsStatus.friends:
-                    return 2;                        
+                    return RequestStatus.friendsAlready;                        
                 case ContactsStatus.rejected:
-                    return 4;
+                    return RequestStatus.rejected;
                 case ContactsStatus.requested:
-                    return 3;
+                    return RequestStatus.requestedAlready;
                 case ContactsStatus.failed:
-                    return 1;
+                    return RequestStatus.Failed;
             }
 
 
-            SendStatus sendStatus = ContactsHelper.SendRequest(idSend, idRecive);
+            SendStatus sendStatus = ContactsHelper.sendRequest(idSend, idRecive);
 
             if (sendStatus == SendStatus.success)
-                return 0;
+                return RequestStatus.success;
 
-            return 1;
+            return RequestStatus.Failed;
         }
     }
 
     public enum RequestStatus
     {
-        success = 0,
-        failed = 1,
-        friendsAlready = 2,
-        requestedAlready = 3,
-        rejected = 4,
-        UserNotFound = 5,
-        AutoRequest = 6
+        success,
+        friendsAlready,
+        requestedAlready,
+        rejected,
+        UserNotFound,
+        Failed,
+        AutoRequest
     }
 }

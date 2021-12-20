@@ -6,7 +6,6 @@
 /* Descripción: Realizar solicitudes de amistad con el uso de un  */
 /*              username                                          */
 /******************************************************************/
-using Contracts.friendsConnected;
 using Logica.request;
 using System;
 using System.Collections.Generic;
@@ -23,19 +22,24 @@ namespace Contracts.ContactRequest
         public void SendRequest(string username, int idUser)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IRequestClient>();
-            int request = Request.Send(username, idUser);     
-            try
-            {
-                connection.SendRequestStatus(request);
-            }
-            catch (CommunicationObjectAbortedException)
-            {
-                if (Globals.UsersConnected.Keys.Contains(idUser))
-                {
-                    FriendService friendService = new FriendService();
-                    friendService.Disconnected(idUser);
-                }
-            }
+
+            RequestStatus request = Request.send(username, idUser);
+
+            if (request == RequestStatus.success)
+                connection.SendRequestStatus(true, "request send");
+            else if (request == RequestStatus.UserNotFound)
+                connection.SendRequestStatus(false, "user missing");
+            else if (request == RequestStatus.friendsAlready)
+                connection.SendRequestStatus(false, "You are friends already");
+            else if (request == RequestStatus.rejected)
+                connection.SendRequestStatus(false, "You were Rejected before");
+            else if (request == RequestStatus.AutoRequest)
+                connection.SendRequestStatus(false, "You cannot send a friend request to yourself");
+            else if (request == RequestStatus.Failed)
+                connection.SendRequestStatus(false, "An error ocurred trying to send the request");
+
+
+                
         }
     }
 }

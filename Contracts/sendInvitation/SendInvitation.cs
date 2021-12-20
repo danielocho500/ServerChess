@@ -6,7 +6,6 @@
 /* Descripción: Definición de metodos en el servidor para crear   */
 /*              invitaciones a partida                            */
 /******************************************************************/
-using Contracts.friendsConnected;
 using Logica;
 using Logica.helpers;
 using System;
@@ -35,6 +34,8 @@ namespace Contracts.sendInvitation
         {
             var connection = OperationContext.Current.GetCallbackChannel<ISendInvitationClient>();
 
+            //validate if the user is alreay in a match
+
             string code = GenerateCode.GetVerificationCode(4);
             while (invitations.Keys.Contains(code) && Globals.Matches.Keys.Contains(code))
             {
@@ -43,25 +44,25 @@ namespace Contracts.sendInvitation
 
             invitations[code] = new DataInvitation(id, connection);
 
-            try
-            {
-                connection.GetCodeMatch(true, code);
-            }
-            catch (CommunicationObjectAbortedException)
-            {
-                if (Globals.UsersConnected.Keys.Contains(id))
-                {
-                    FriendService friendService = new FriendService();
-                    friendService.Disconnected(id);
-                }
-                invitations.Remove(code);
-            }
+            connection.GetCodeMatch(true, code);
 
         }
 
         public void ValidateCodeInvitation(int id, string code)
         {
             var connection = OperationContext.Current.GetCallbackChannel<ISendInvitationClient>();
+            
+            //validate if the user is alreay in a match
+            foreach(string key in Globals.Matches.Keys)
+            {
+                Match match = Globals.Matches[key];
+                if(match.idWhite == id || match.idBlack == id)
+                {
+                    connection.ValidateCodeStatus(false, "", "","", false);
+                    return;
+                }
+
+            }
 
             if (invitations.Keys.Contains(code))
             {
@@ -72,63 +73,29 @@ namespace Contracts.sendInvitation
                 //validate if the rival user is still connected
                 if (!Globals.UsersConnected.Keys.Contains(idRival))
                 {
-                    try
-                    {
-                        connection.ValidateCodeStatus(1, "", "", "", false);
-                    }
-                    catch (CommunicationObjectAbortedException)
-                    {
-                        if (Globals.UsersConnected.Keys.Contains(id))
-                        {
-                            FriendService friendService = new FriendService();
-                            friendService.Disconnected(id);
-                        }
-                    }
+                    connection.ValidateCodeStatus(false, "","", "",false);
                     return;
                 }
 
                 //crete the match
                 Globals.Matches[code] = new Match(idRival, id);
-                try
-                {
-                    connection.ValidateCodeStatus(0, usernameActual, usernameRival, code, false);
-                    invitations[code].connection.JoinMatch(usernameRival, usernameActual, code, true);
-                }
-                catch (CommunicationObjectAbortedException)
-                {
-                    if (Globals.UsersConnected.Keys.Contains(id))
-                    {
-                        FriendService friendService = new FriendService();
-                        friendService.Disconnected(id);
-                    }
+                
+                connection.ValidateCodeStatus(true,usernameRival,usernameActual,code,false);
+                invitations[code].connection.JoinMatch(usernameActual,usernameRival,code,true);
 
-                    Globals.Matches.Remove(code);
-                }
-
-
+                
 
                 invitations.Remove(code);
             }
             else
             {
-                try
-                {
-                    connection.ValidateCodeStatus(2, "", "", "", false);
-                }
-                catch (CommunicationObjectAbortedException)
-                {
-                    if (Globals.UsersConnected.Keys.Contains(id))
-                    {
-                        FriendService friendService = new FriendService();
-                        friendService.Disconnected(id);
-                    }
-                }
+                connection.ValidateCodeStatus(false, "","", "",false);
             }
         }
     }
 
      class DataInvitation
-     {
+    {
         public int idUserSend { get; set; }
         public ISendInvitationClient connection { get; set; }
 

@@ -26,37 +26,28 @@ namespace Contracts.register
     class RegisterService : IRegisterService
     {
         Dictionary<IRegisterClient, UserData> codes = new Dictionary<IRegisterClient, UserData>();
-        public void GenerateCodeRegister(string username, string password, string email)
+        public bool GenerateCodeRegister(string username, string password, string email)
         {
-            var connection = OperationContext.Current.GetCallbackChannel<IRegisterClient>();
+           AccountExistStatus status = exist(email, username);
 
-            int userExist = Exist(email, username);
-
-            if (userExist != 0)
-            {
-                connection.CodeRecieve(userExist);
-                return;
-            }
+            if (status == AccountExistStatus.emailExist || status == AccountExistStatus.userExist)
+                return false;
 
             string code = GenerateCode.GetVerificationCode(6);
 
             UserData ud = new UserData(username, password, email, code);
             
-            bool emailStatus = SendEmail.Send(email, code, username);
-            try
+            bool emailStatus = SendEmail.send(email, code, username);
+
+            if (emailStatus)
             {
-                if (emailStatus)
-                {
-                    codes[connection] = ud;
-                    connection.CodeRecieve(0);
-                }
-                else
-                {
-                    connection.CodeRecieve(1);
-                }
+                var connection = OperationContext.Current.GetCallbackChannel<IRegisterClient>();
+                codes[connection] = ud;
+                return true;
             }
-            catch (CommunicationObjectAbortedException)
+            else
             {
+                return false;
             }
         }
 
@@ -67,7 +58,7 @@ namespace Contracts.register
 
             if (codeServer != codeUser) 
             {
-                connection.ValidateCode(2);
+                connection.ValidateCode(false, 1);
             }
 
             else
@@ -78,16 +69,14 @@ namespace Contracts.register
 
 
                 Register register = new Register();
-                int status = register.RegisterAccount(username, password, email);
+                RegisterStatus status = register.RegisterAccount(username, password, email);
 
 
-                try
-                {
-                    connection.ValidateCode(status);
-                }
-                catch (CommunicationObjectAbortedException)
-                { 
-                }
+
+                if (status == RegisterStatus.Success)
+                    connection.ValidateCode(true, 0);
+                else
+                    connection.ValidateCode(false, 2);
             }
         }
     }

@@ -37,23 +37,17 @@ namespace Logica.helpers
         public static int GetIdUser(string username)
         {
             int id = 0;
-            try
-            {
-                using (var context = new SuperChess())
-                {
-                    var user = from User in context.Users
-                               where User.username == username
-                               select User.id_user;
 
-                    if (user.Count() > 0)
-                        id = user.First();
-                    else
-                        id = -1;
-                }
-            }
-            catch (Exception e)
+            using (var context = new SuperChess())
             {
-                Console.WriteLine("ContactsHelper.cs " + e.Message);
+                var user = from User in context.Users
+                         where User.username == username
+                         select User.id_user;
+
+                if (user.Count() > 0)
+                    id = user.First();
+                else
+                    id = -1;
             }
             return id;
         }

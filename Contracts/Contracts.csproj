@@ -58,8 +58,6 @@
     <Compile Include="getStats\GetStatsService.cs" />
     <Compile Include="getStats\IGetStatsClient.cs" />
     <Compile Include="getStats\IGetStatsService.cs" />
-    <Compile Include="Globals.cs" />
-    <Compile Include="Match.cs" />
     <Compile Include="match\MatchService.cs" />
     <Compile Include="match\IMatchService.cs" />
     <Compile Include="match\IMatchClient.cs" />
@@ -73,14 +71,13 @@
     <Compile Include="friendsConnected\FriendService.cs" />
     <Compile Include="friendsConnected\IFriendConnectedClient.cs" />
     <Compile Include="friendsConnected\IFriendService.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="login\ILoginClient.cs" />
     <Compile Include="login\ILoginService.cs" />
     <Compile Include="login\LoginService.cs" />
+    <Compile Include="Match.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ranking\IRankingClient.cs" />
-    <Compile Include="ranking\IRankingService.cs" />
-    <Compile Include="ranking\RankingService.cs" />
     <Compile Include="register\IRegisterClient.cs" />
     <Compile Include="register\IRegisterService.cs" />
     <Compile Include="register\RegisterService.cs" />

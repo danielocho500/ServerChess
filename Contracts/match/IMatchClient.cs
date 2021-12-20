@@ -13,7 +13,5 @@ namespace Contracts.match
         void ReciveMessage(string message,string time);
         [OperationContract(IsOneWay = true)]
         void MatchEnds(bool youWon, int oldElo,int newElo);
-        [OperationContract(IsOneWay = true)]
-        void MovePiece(string previousPosition, string newPosition, int timeLeft);
     }
 }
