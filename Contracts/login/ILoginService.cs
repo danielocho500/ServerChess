@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: ILoginService.cs                                      */
+/* Programador: Raul Peredo Estudillo                             */
+/* Fecha: 18/oct/2021                                             */
+/* Fecha modificación: 30/oct/2021                                */
+/* Descripción: Interfaz donde se definen metodos del servidor    */
+/*               pora el servicio de login                        */
+/******************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;

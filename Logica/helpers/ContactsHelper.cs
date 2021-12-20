@@ -15,13 +15,13 @@ namespace Logica.helpers
 
             using (var context = new SuperChess())
             {
-                var AmigoExist = from Amigo in context.Amigos
-                                 where (Amigo.amigo_A == idSend && Amigo.amigo_B == idRecive)
-                                    || (Amigo.amigo_A == idRecive && Amigo.amigo_B == idSend)
-                                 select Amigo;
-                if (AmigoExist.Count() > 0)
+                var FriendExist = from Friend in context.Friends
+                                 where (Friend.friend_A == idSend && Friend.friend_B == idRecive)
+                                    || (Friend.friend_A == idRecive && Friend.friend_B == idSend)
+                                 select Friend;
+                if (FriendExist.Count() > 0)
                 {
-                    switch (AmigoExist.First().status)
+                    switch (FriendExist.First().status)
                     {
                         case 0:
                             status = ContactsStatus.friends;
@@ -52,14 +52,14 @@ namespace Logica.helpers
 
             using( var context = new SuperChess())
             {
-                Amigos request = new Amigos()
+                Friends request = new Friends()
                 {
-                    amigo_A = idSend,
-                    amigo_B = idRecive,
+                    friend_A = idSend,
+                    friend_B = idRecive,
                     status = 1
                 };
 
-                context.Amigos.Add(request);
+                context.Friends.Add(request);
                 int entries = context.SaveChanges();
                 context.SaveChanges();
 
@@ -80,17 +80,17 @@ namespace Logica.helpers
 
             using (var context = new SuperChess())
             {
-                var users = from Amigos in context.Amigos
-                            where Amigos.amigo_B == idUser && Amigos.status == 1
-                            select Amigos;
+                var users = from Friend in context.Friends
+                            where Friend.friend_B == idUser && Friend.status == 1
+                            select Friend;
 
                 foreach( var user in users)
                 {
-                    var username = from usuario in context.Usuarios
-                                   where usuario.id_usuarios == user.amigo_A
-                                   select usuario;
+                    var username = from User in context.Users
+                                   where User.id_user == user.friend_A
+                                   select User;
 
-                    requets[user.amigo_A] = username.First().username;
+                    requets[user.friend_A] = username.First().username;
                 }
             }
 
@@ -103,9 +103,9 @@ namespace Logica.helpers
 
             using (var context = new SuperChess())
             {
-                var request = from Amigo in context.Amigos
-                              where Amigo.amigo_B == idUserSend && Amigo.amigo_A == idUserRecive
-                              select Amigo;
+                var request = from Friend in context.Friends
+                              where Friend.friend_B == idUserSend && Friend.friend_A == idUserRecive
+                              select Friend;
 
                 if (accept == true)
                 {
@@ -132,21 +132,21 @@ namespace Logica.helpers
 
             using (var context = new SuperChess())
             {
-                var friendsDb = from Amigo in context.Amigos
-                              where (Amigo.amigo_A == id && Amigo.status == 0) || (Amigo.amigo_B == id && Amigo.status == 0)
-                              select Amigo;
+                var friendsDb = from Friend in context.Friends
+                              where (Friend.friend_A == id && Friend.status == 0) || (Friend.friend_B == id && Friend.status == 0)
+                              select Friend;
 
                 foreach (var friendDb in friendsDb)
                 {
-                    if (id != friendDb.amigo_A)
+                    if (id != friendDb.friend_A)
                     {
-                        string name = UserHelper.getUsername(friendDb.amigo_A);
-                        friends[friendDb.amigo_A] = name;
+                        string name = UserHelper.GetUsername(friendDb.friend_A);
+                        friends[friendDb.friend_A] = name;
                     }
                     else
                     {
-                        string name = UserHelper.getUsername(friendDb.amigo_B);
-                        friends[friendDb.amigo_B] = name;
+                        string name = UserHelper.GetUsername(friendDb.friend_B);
+                        friends[friendDb.friend_B] = name;
                     }
                 }
             }

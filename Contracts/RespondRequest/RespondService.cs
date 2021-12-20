@@ -1,4 +1,11 @@
-﻿using Logica.helpers;
+﻿/******************************************************************/
+/* Archivo: IRespondService.cs                                    */
+/* Programador: Raul Peredo Estudillo                             */
+/* Fecha: 23/oct/2021                                             */
+/* Fecha modificación: 25/oct/2021                                */
+/* Descripción: Aceptar o rechazar una solicitud de amistad       */
+/******************************************************************/
+using Logica.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +18,12 @@ namespace Contracts.RespondRequest
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     class RespondService : IRespondService
     {
-        public void confirmRequest(bool accept, int idUserSend, int idUserRecive)
+        public void ConfirmRequest(bool accept, int idUserSend, int idUserRecive)
         {
-            var connection = OperationContext.Current.GetCallbackChannel<IRespondClient>();
-            Console.WriteLine(idUserSend + "- " +"- " +idUserRecive + "-" + accept);
-
-            StatusRespond status =  ContactsHelper.ConfirmRequest(accept,idUserSend,idUserRecive);
+            ContactsHelper.ConfirmRequest(accept,idUserSend,idUserRecive);
 
         }
-        public void getRequests(int idUser)
+        public void GetRequests(int idUser)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IRespondClient>();
             Dictionary<int,string> users = ContactsHelper.getRequest(idUser);

@@ -13,13 +13,13 @@ namespace Logica.AccountExist
         {
             using (var context = new SuperChess())
             {
-                var emailExist = from Usuario in context.Usuarios
-                                 where Usuario.email == email 
-                                 select Usuario;
+                var emailExist = from User in context.Users
+                                 where User.email == email 
+                                 select User;
 
-                var userExist = from Usuario in context.Usuarios
-                                where Usuario.username == username
-                                select Usuario;
+                var userExist = from User in context.Users
+                                where User.username == username
+                                select User;
 
                 if (emailExist.Count() > 0)
                 {

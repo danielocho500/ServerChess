@@ -18,9 +18,9 @@ namespace Logica.helpers
 
                 using (var context = new SuperChess())
                 {
-                    var userExist = from Usuario in context.Usuarios
-                                    where Usuario.username == user
-                                    select Usuario;
+                    var userExist = from User in context.Users
+                                    where User.username == user
+                                    select User;
 
                     if (userExist.Count() > 0)
                         status = true;
@@ -34,35 +34,33 @@ namespace Logica.helpers
             }
         }
 
-        public static int getIdUser(string username)
+        public static int GetIdUser(string username)
         {
             int id = 0;
 
             using (var context = new SuperChess())
             {
-                var user = from Usuario in context.Usuarios
-                         where Usuario.username == username
-                         select Usuario.id_usuarios;
+                var user = from User in context.Users
+                         where User.username == username
+                         select User.id_user;
 
                 if (user.Count() > 0)
                     id = user.First();
                 else
                     id = -1;
             }
-
             return id;
-
         }
 
-        public static string getUsername(int id)
+        public static string GetUsername(int id)
         {
             string username = "";
 
             using (var context = new SuperChess())
             {
-                var name = from Usuario in context.Usuarios
-                           where Usuario.id_usuarios == id
-                           select Usuario;
+                var name = from User in context.Users
+                           where User.id_user == id
+                           select User;
 
                 if (name.Count() > 0)
                     username = name.First().username;

@@ -23,9 +23,9 @@ namespace Logica.login
 
             using (var context = new SuperChess())
             {
-                var AccountExist = from Usuario in context.Usuarios
-                                   where Usuario.username == username && Usuario.password == ps
-                                   select Usuario;
+                var AccountExist = from User in context.Users
+                                   where User.username == username && User.password == ps
+                                   select User;
 
                 if (AccountExist.Count() > 0)
                     status = LoginStatus.Success;

@@ -25,15 +25,14 @@ namespace Logica.register
 
                 using (var context = new SuperChess())
                 {
-                    Usuarios newUser = new Usuarios()
+                    Users newUser = new Users()
                     {
                         username = username,
                         password = ps,
                         email = email,
-                        codigo_cuenta = 99999
                     };
 
-                    context.Usuarios.Add(newUser);
+                    context.Users.Add(newUser);
                     int entries = context.SaveChanges();
                     context.SaveChanges();
 

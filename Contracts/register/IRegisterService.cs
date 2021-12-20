@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: IRegisterService.cs                                   */
+/* Programador: Raul Peredo Estudillo                             */
+/* Fecha: 18/oct/2021                                             */
+/* Fecha modificación: 22/oct/2021                                */
+/* Descripción: Interfaz donde se definen metodos del server para */
+/*              para el servicio de login                         */
+/******************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,8 +19,8 @@ namespace Contracts.register
     interface IRegisterService
     {
         [OperationContract]
-        bool generateCode(string username, string password, string email);
+        bool GenerateCodeRegister(string username, string password, string email);
         [OperationContract(IsOneWay = true)]
-        void verificateCode(string codeuser);
+        void VerificateCode(string codeuser);
     }
 }

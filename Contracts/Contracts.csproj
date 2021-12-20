@@ -55,19 +55,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="match\MatchService.cs" />
+    <Compile Include="match\IMatchService.cs" />
+    <Compile Include="match\IMatchClient.cs" />
     <Compile Include="checkConnection\ConnectionService.cs" />
     <Compile Include="checkConnection\IConnectionClient.cs" />
     <Compile Include="checkConnection\IConnectionService.cs" />
     <Compile Include="ChessService.cs" />
-    <Compile Include="ContactRequest\IRequestClient.cs" />
-    <Compile Include="ContactRequest\IRequestService.cs" />
-    <Compile Include="ContactRequest\RequestService.cs" />
+    <Compile Include="contactRequest\IRequestClient.cs" />
+    <Compile Include="contactRequest\IRequestService.cs" />
+    <Compile Include="contactRequest\RequestService.cs" />
     <Compile Include="friendsConnected\FriendService.cs" />
     <Compile Include="friendsConnected\IFriendConnectedClient.cs" />
     <Compile Include="friendsConnected\IFriendService.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="login\ILoginClient.cs" />
     <Compile Include="login\ILoginService.cs" />
     <Compile Include="login\LoginService.cs" />
+    <Compile Include="Match.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="register\IRegisterClient.cs" />
@@ -76,6 +81,9 @@
     <Compile Include="RespondRequest\IRespondClient.cs" />
     <Compile Include="RespondRequest\IRespondService.cs" />
     <Compile Include="RespondRequest\RespondService.cs" />
+    <Compile Include="sendInvitation\ISendInvitationClient.cs" />
+    <Compile Include="sendInvitation\ISendInvitationService.cs" />
+    <Compile Include="sendInvitation\SendInvitation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

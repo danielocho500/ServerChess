@@ -1,4 +1,12 @@
-﻿using Logica.helpers;
+﻿/******************************************************************/ 
+/* Archivo: ConnectionService.cs                                  */ 
+/* Programador: Raul Peredo Estudillo                             */ 
+/* Fecha: 23/oct/2021                                             */ 
+/* Fecha modificación: 23/oct/2021                                */ 
+/* Descripción: Servicio para verificar si hay conexión con el    */ 
+/*              server                                            */ 
+/******************************************************************/ 
+using Logica.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +19,12 @@ namespace Contracts.checkConnection
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.Single)]
     class ConnectionService : IConnectionService
     {
-        public void check()
+        public void Check()
         {
 
             var connection = OperationContext.Current.GetCallbackChannel<IConnectionClient>();
             bool status = CheckConnection.isConnected();
-            connection.isConnected(status);
+            connection.IsConnected(status);
         }
     }
 }

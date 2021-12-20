@@ -16,9 +16,9 @@ namespace Logica.helpers
             {
                 using (var context = new SuperChess())
                 {
-                    var pieceExist = from Pieza in context.Piezas
-                                     where Pieza.id_pieza == 1
-                                     select Pieza;
+                    var pieceExist = from Piece in context.piece
+                                     where Piece.id_piece == 1
+                                     select Piece;
                     if (pieceExist.Count() > 0)
                         status = true;
                 }

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************/
+/* Archivo: IFriendConnectedClient.cs                             */
+/* Programador: Daniel Díaz Rossell                               */
+/* Fecha: 01/nov/2021                                             */
+/* Fecha modificación: 04/nov/2021                                */
+/* Descripción: Interfaz con los metodos implementados por el     */
+/*              cliente para los usuarios conectados              */
+/******************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;

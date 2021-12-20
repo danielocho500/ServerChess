@@ -1,4 +1,11 @@
-﻿using Contracts;
+﻿/******************************************************************/
+/* Archivo: ChessService.cs                                       */
+/* Programador: Daniel Díaz Rossell                               */
+/* Fecha: 17/oct/2021                                             */
+/* Fecha modificación: 19/oct/2021                                */
+/* Descripción: Arrancar el host                                  */
+/******************************************************************/
+using Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +17,10 @@ namespace Contracts
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             ServiceHost host = new ServiceHost(typeof(ChessService));
             host.Open();
-            /* Para pruebas
-            ChessService chess = new ChessService();
-            */
             Console.WriteLine("Server running, put enter to close it");
             Console.ReadLine();
             host.Close();

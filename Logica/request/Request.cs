@@ -13,7 +13,7 @@ namespace Logica.request
             if (!exist)
                 return RequestStatus.UserNotFound;
 
-            var idRecive = UserHelper.getIdUser(user);
+            var idRecive = UserHelper.GetIdUser(user);
 
             if (idRecive == idSend)
                 return RequestStatus.AutoRequest;

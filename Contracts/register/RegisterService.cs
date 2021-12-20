@@ -1,4 +1,12 @@
-﻿using Logica.register;
+﻿/******************************************************************/
+/* Archivo: RegisterService.cs                                    */
+/* Programador: Raul Peredo Estudillo                             */
+/* Fecha: 18/oct/2021                                             */
+/* Fecha modificación: 22/oct/2021                                */
+/* Descripción: Permite a un usuario registrarse con un codigo que*/
+/*              se envia a su corre                               */
+/******************************************************************/
+using Logica.register;
 using Logica.helpers;
 using System;
 using System.Collections.Generic;
@@ -18,7 +26,7 @@ namespace Contracts.register
     class RegisterService : IRegisterService
     {
         Dictionary<IRegisterClient, UserData> codes = new Dictionary<IRegisterClient, UserData>();
-        public bool generateCode(string username, string password, string email)
+        public bool GenerateCodeRegister(string username, string password, string email)
         {
            AccountExistStatus status = exist(email, username);
 
@@ -43,10 +51,10 @@ namespace Contracts.register
             }
         }
 
-        public void verificateCode(string codeUser)
+        public void VerificateCode(string codeUser)
         {
             var connection = OperationContext.Current.GetCallbackChannel<IRegisterClient>();
-            string codeServer = codes[connection].getCode();
+            string codeServer = codes[connection].GetCode();
 
             if (codeServer != codeUser) 
             {
@@ -55,9 +63,9 @@ namespace Contracts.register
 
             else
             {
-                string username = codes[connection].getusername();
-                string password = codes[connection].getPassword();
-                string email = codes[connection].getEmail();
+                string username = codes[connection].Getusername();
+                string password = codes[connection].GetPassword();
+                string email = codes[connection].GetEmail();
 
 
                 Register register = new Register();
@@ -87,22 +95,22 @@ namespace Contracts.register
             code = code_;
         }
 
-        public string getCode()
+        public string GetCode()
         {
             return this.code;
         }
 
-        public string getPassword()
+        public string GetPassword()
         {
             return this.password;
         }
 
-        public string getEmail()
+        public string GetEmail()
         {
             return this.email;
         }
 
-        public string getusername()
+        public string Getusername()
         {
             return this.username;
         }
